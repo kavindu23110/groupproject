@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i,700,700i,900,900i');
+    </style>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.bundle.js"></script>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.modal.min.css">
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/General.css">
+    <link rel="stylesheet" href="test/jquery-confirm.min.css">
+    <script src="test/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="test/demo.css">
+    <script src="test/demo.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" style="font-family:Vollkorn400;" href="#">
+    <img src="img/Emblem_of_Sri_Lanka.svg.png" width="40" height="51" class="d-inline-block align-content-center" alt="Gov LOGO">
+    DMC Badulla
+       </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse align-content-center" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Image Gallery</a>
+            </li>
+
+
+
+        </ul>
+<ul class="nav navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="#ex1" rel="modal:open">  <button class="btn btn-success btn-outline-success px-3 my-2 my-sm-0"   type="button">Login</button></a>
+    </li>
+</ul>
+
+    </div>
+
+
+</nav>
+
+
+<footer class=" bg-dark navbar-dark position-relative" style="color: white" id="ft" >
+    <div class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4  col-md-4 col-sm-4 col-xs-6">
+                    <h3> Ministry of Disaster Management  </h3>
+                    <ul>
+                        <li> <a href="info@dmc.gov.lk"> Website: info@dmc.gov.lk</a> </li>
+                        <li> E-mail :  eoc@dmc.gov.lk</li>
+                        <li > Tel   :  +94 11 2136136 </li>
+
+
+
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-2 col-sm-4 col-xs-6">
+                    <h3>Badulla center </h3>
+                    <ul>
+                        <li class=""> <a href="info@dmc.gov.lk"> Website: info@dmc.gov.lk</a> </li>
+                        <li> E-mail :  eoc@dmc.gov.lk</li>
+                        <li > Tel   :  +94 11 2136136 </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4  col-md-2 col-sm-4 col-xs-6">
+                    <h3> Emergency contacts </h3>
+                    <ul>
+                        <!--      <li> <a href="#"> Lorem Ipsum </a> </li>
+                              <li> <a href="#"> Lorem Ipsum </a> </li>-->
+
+                    </ul>
+                </div>
+
+            </div>
+            <!--/.row-->
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.footer-->
+
+    <div class="footer-bottom  bg-dark">
+        <div class="container">
+            <p class="pull-left" > Copyright © uva Wellassa University  <?php echo date("Y")?>. All right reserved. </p>
+
+        </div>
+    </div>
+    <!--/.footer-bottom-->
+</footer>
+
+
+<div id="ex1" style="display:none; background-color: #2aabd2;" class=" loginwindow">
+    <form action="process.php" onsubmit="" method="POST" id="loginform" role="form">
+        <legend style=" text-align: center "><h1 id="logh1">Login </h1></legend>
+        <div class="form-group form-horizontal">
+            <label class="marginform" for="username">username</label>
+            <input type="text" class="form-control" name="username" required id="user" placeholder="Username">
+            <label class="marginform" for="password">password</label>
+            <input type="password" class="form-control " name="password" id="pass" placeholder="Password" required>
+            <div class="form-inline"><label style="margin: 2%" for="savebox">save your login</label><input
+                    type="checkbox"></div>
+
+        </div>
+        <p style="text-align: center" class="text-danger " id="wronginput">Incorrect username or password.</p>
+        <button type="submit" class="btn btn-primary btn-success" id="logsubmit">Login</button>
+    </form>
+
+</div>
+
+<script>
+    $("#wronginput").hide();
+    $("#loginform").submit(
+        function (e) {
+
+            e.preventDefault();
+            $.post("process.php", $(this).serialize() + "&value=1",
+                function (data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+
+
+                    if (data == "Invalid username or  password." )
+                    { $("#wronginput").show();
+                        $("#pass").val("");
+                    }
+
+                  else if(data=="0"){
+                        $("#pass").val("");
+                          $.alert({
+                                title: 'Error',
+                                icon: '',
+                                type: 'red',
+                                animation:'opacity',
+                              // animationBounce: 1.5,
+                                animationspeed:3000,
+                                autoClose: 'cancelAction|8000',
+                                content: 'Your account is not activated' +
+                                '<br>' +
+                                'Please contact system adminstrator',
+                            });
+                    }
+                    else{
+                        document.write(data);
+                    }
+
+
+
+                });
+        }
+    );
+
+
+</script>
+
+</body>
+</html>

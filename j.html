@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/iziModal.min.css">
+    <link rel="stylesheet" href="css/jquery.modal.min.css">
+    <script src="js/iziModal.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.bundle.js"></script>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="js/parsley.min.js"></script>
+    <link rel="stylesheet" href="css/parsley.css">
+    <link rel="stylesheet" href="test/jquery-confirm.min.css">
+    <script src="test/jquery-confirm.min.js"></script>
+</head>
+<body>
+<form action="" id="a" class="" method="POST" role="form" >
+	<legend>Form Title</legend>
+
+	<div class="form-group">
+		<label for=""></label>
+		<input type="text" class="form-control" name="" id="c"	data-parsley-trigger="focusin focusout " data-parsley-pattern="[A-Za-z ]" data-parseley required="true" placeholder="Input...">
+	</div>
+
+
+
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    $("#a").parsley();
+    $("#a").parsley().()
+    $('form').parsley();
+    window.Parsley
+        .addValidator('m', {
+            requirementType: '/hel+o/i',
+            validateString: function(value, requirement) {
+                return 0 === value % requirement;
+            },
+            messages: {
+                en: 'This value should be a multiple of %s',
+                fr: 'Cette valeur doit être un multiple de %s'
+            }
+        });
+
+</script>
+
+<body style="">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#activationmodal">
+    Launch demo modal
+</button>
+
+<!-- activation Modal -->
+<div class="modal fade align-items-center" id="activationmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="text-center ">Activation</h5>
+            </div>
+            <div class="modal-body justify-content-center">
+                <div class="card bg-light" style="background-color: ">
+                    <div class="card-body">
+                        This is some text within a card body.
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card bg-light">
+    <div class="card-body">
+        <p>Name:</p>
+        <p>usertype:</p>
+        <p>nic:</p>
+        <p>by:</p>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-danger">Reject</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button></div>
+
+</div>.
+
+<script>
+
+
+    $.confirm({
+        title: 'Please enter the date',
+        content: '     <form action="" method="POST" id="dailyreportform" role="form"> <div class="form-group"> <label for="">Date</label> <input type="text" class="form-control" required name="date" id="dailydate" placeholder="Enter date"> </div>',
+        buttons: {
+            sayMyName: {
+                text: 'Say my name',
+                btnClass: 'btn-orange',
+                action: function () {
+                    var input = this.$content.find('input#input-name');
+                    var errorText = this.$content.find('.text-danger');
+                    if (!input.val().trim()) {
+                        $.alert({
+                            content: "Please don't keep the name field empty.",
+                            type: 'red'
+                        });
+                        return false;
+                    } else {
+                        $.alert('Hello ' + input.val() + ', i hope you have a great day!');
+                    }
+                }
+            },
+            later: function () {
+                // do nothing.
+            }
+        }
+    });
+
+
+
+
+</script>
+</body>
+</body>
+</html>

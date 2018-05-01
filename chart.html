@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.js" integrity="sha256-jx5SpNrWp5tIlHK2uGtUsZ4QRJkEV9aQXXGN3kkPXIE=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="ui/jquery-ui.min.css">
+    <script src="ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/General.css">
+
+
+</head>
+<body>
+<div class="iziModal  " id="rainchartform">
+    <div class="iziModal-header">
+        <h2 class="iziModal-header-title text-lg-center">Rain graphs</h2>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close"
+                                                data-izimodal-close=""></a><a href="javascript:void(0)"
+                                                                              class="iziModal-button iziModal-button-fullscreen"
+                                                                              data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-wrap " style="height: auto">
+        <div class="iziModal-content p-2">
+            <div class="admin_msg_win">
+                <form action="raingraphform" id="raingraphform" method="POST" role="form">
+                    <legend class="legends">Select Timeslot</legend>
+                    <div class="form-group">
+                        <div class="form-row my-2 mx-2">
+                            <div class="col justify-content-lg-end"><label for="timeslot">Select Timeslot :</label>
+                            </div>
+                            <div class="col">
+                                <select class="form-control" name="timeslot" required onchange="timeslotselect();"
+                                        id="timeslot">
+                                    <option>Daily</option>
+                                    <option>Weekly</option>
+                                    <option>Monthly</option>
+                                    <option>Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-row my-2 mx-2">
+                            <div class="col"><label for="areas">Area :</label></div>
+                            <div class="col">
+                                <select required onchange="areaselect();" class="form-control" name="area" id="areas">
+                                    <option></option>
+                                    <option>All</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row my-2 mx-2 " id="datehide">
+                            <div class="col"><label for="calender">Date selection:</label></div>
+                            <div class="col form-inline" id="calender">
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary ">Submit</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="iziModal  " id="rainchart">
+    <div class="iziModal-header">
+        <h2 class="iziModal-header-title text-lg-center">Rain chart</h2>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close"
+                                                data-izimodal-close=""></a><a href="javascript:void(0)"
+                                                                              class="iziModal-button iziModal-button-fullscreen"
+                                                                              data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-wrap " style="height: auto">
+        <div class="iziModal-content p-2">
+
+            <canvas id="bar-chart" width="800" height="450"></canvas>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#rainchart").iziModal();
+    $("#rainchart").iziModal('open');
+    $("#rainchartform").iziModal();
+    $("#rainchartform").iziModal('open');
+
+    $("#areas").val(" ");
+    $('#timeslot').val(" ");
+    $("#datehide").hide();
+    $('#areas').attr("disabled", true);
+    $("").remove();
+
+    $.get("process2.php?value=20",
+        function (data, status) {
+            var arr = JSON.parse(data);
+            $.each(arr, function (index, val) {
+                $("#areas").append("<option>" + val + "</option>")
+            });
+        });
+    function timeslotselect() {
+        $("#areas").attr("disabled", false);
+
+    }
+    function areaselect() {
+
+        if (($('#timeslot').val() == "Daily" && $('#areas').val() == "All")) {
+            $("#calender").empty();
+            $("#calender").append(' <input required type="text" class="form-control w-100 " name="date" id="calender1" placeholder="Date">');
+            $("#calender1").datepicker({
+                minDate: -30, maxDate: 0, changeMonth: true,
+                changeYear: true,
+            });
+            $( "#calender1" ).datepicker( "option", "dateFormat","yy-mm-dd" );
+
+            $("#datehide").show();
+        }
+        else {
+            $("#calender").empty();
+            $("#calender").append(' <input required type="text" class="form-control form-inline w-50  " name="from" id="from" placeholder="From">');
+            $("#calender").append(' <input required type="text" class="form-control form-inline w-50 " name="to" id="to" placeholder="To">');
+            $(function () {
+                var dateFormat = "mm/dd/yy",
+                    from = $("#from")
+                        .datepicker({
+                            defaultDate: "+1w",
+                            changeMonth: true,
+                            changeYear: true,
+                            maxDate: -1
+
+                        })
+                        .on("change", function () {
+                            to.datepicker("option", "minDate", getDate(this));
+                        }),
+                    to = $("#to").datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        changeYear: true, maxDate: 0
+
+                    })
+                        .on("change", function () {
+                            from.datepicker("option", "maxDate", getDate(this));
+                        });
+
+                function getDate(element) {
+                    var date;
+                    try {
+                        date = $.datepicker.parseDate(dateFormat, element.value);
+                    } catch (error) {
+                        date = null;
+                    }
+
+                    return date;
+                }
+            });
+
+
+            $("#datehide").show();
+        }
+
+
+    }
+
+    /*chartpost*/
+    $("#raingraphform").submit(
+        function (e) {
+            var timeslot=$('#timeslot').val();
+            var area=$('#areas').val();
+            var date=$('#date').val();
+            var to=$('#to').val();
+            var from=$('#from').val();
+            e.preventDefault();
+            /*daily all*/
+            if(($('#timeslot').val() == "Daily" && $('#areas').val() == "All")){
+                $.post("process2.php", $(this).serialize() + "&value=21",
+                    function (data, status) {
+
+
+
+
+
+
+                        $("#raingraphform").trigger('reset');
+                        $('#timeslot').val(" ");
+
+                        $("#calender").empty();
+                        $("#datehide").hide();
+
+                        if (data == "0") {
+
+                        } else {
+                            var key;
+                            var arr=jQuery.parseJSON(data);
+                            $.each( arr.key, function( keys, value ) {
+
+                            });
+
+                            $("#rainchart").iziModal('open');
+                            new Chart(document.getElementById("bar-chart"), {
+                                type: 'bar',
+                                data: {
+                                    labels:arr.key,
+
+                                    datasets: [
+                                        {
+                                            label: "Rain Gauge (mm)",
+                                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f",],
+                                            data:arr.value,
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    legend: { display: false },
+                                    title: {
+                                        display: true,
+                                        text: 'Rain gauge of '+area +" in " +date,
+                                    }
+                                }
+                            });
+
+
+
+
+                        }
+
+                    });  }
+            /*end daily all*/
+        }
+    );
+
+
+
+
+</script>
+</body>
+</html>

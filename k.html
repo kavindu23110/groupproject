@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/iziModal.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="css/General.css">
+    <link rel="stylesheet" href="css/iziModal.min.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="test/jquery-confirm.min.css">
+    <script src="test/jquery-confirm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.js"></script>
+    <script src="js/jquery.loadingModal.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.loadingModal.css">
+    <link rel="stylesheet" href="ui/jquery-ui.min.css">
+    <script src="ui/jquery-ui.min.js"></script>
+    <script src="js/parsley.min.js"></script>
+    <link rel="stylesheet" href="css/parsley.css">
+</head>
+<body>
+
+<form action="" method="POST" id="s" class="" role="form">
+    <legend class="legends">Please enter date</legend>
+
+    <div class="form-group">
+
+        <input type="text"  class="form-control" data required name="" id="dailydata2" placeholder="Input...">
+    </div>
+
+    <button type="submit" class="btn btn-primary admin_msg_submit">Submit</button>
+    <button type="reset" class="btn btn-danger admin_msg_submit mx-2">Reset</button>
+
+</form>
+
+
+
+<div id="daily" class="iziModal">
+    <div class="iziModal-header ">
+        <h3 class="iziModal-header-title text-center">Enter date</h3>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close"
+                                                data-izimodal-close=""></a><a href="javascript:void(0)"
+                                                                              class="iziModal-button iziModal-button-fullscreen"
+                                                                              data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-content my-4   p-2 justify-content-center">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 admin_msg_win">
+                <form action="" method="POST" id="deform" class="" role="form">
+                    <legend class="legends">Please enter date</legend>
+
+                    <div class="form-group">
+
+                        <input type="text"  class="form-control" required name="" id="dailydata" placeholder="Input...">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary admin_msg_submit">Submit</button>
+                    <button type="reset" class="btn btn-danger admin_msg_submit mx-2">Reset</button>
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+
+        $("#daily").iziModal();
+
+        $("#dailydata2").datepicker({
+            minDate: -10, maxDate: 0
+        });
+        $("#dailydata2").datepicker("option", "dateFormat", "yy-mm-dd");
+
+
+        $("#dailybutton").click(function() {
+            $("#daily").iziModal('open');
+        });
+
+    $("#deform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#staffupform").serialize() + "&value=16&type=s1",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy');
+
+                                }, 4000);
+
+                                setTimeout(function () {
+                                    if (data == "0") {
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '',
+                                        });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'Requset sent sucessfully',
+                                            content: 'Request send to  pending permissions  ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#empserachform3,#staffupform").trigger('reset');
+                                    $("#staffupform").hide();
+
+                                }, 4000);
+                            });
+
+
+                    }
+                },
+                cancel: {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+
+</script>
+
+<!--
+
+
+<script>
+    var type;
+    var val = $("#1");
+</script>
+
+<div id="usersmodal" class="iziModal">
+    <div class="iziModal-header ">
+        <h3 class="iziModal-header-title text-center">User type</h3>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a><a href="javascript:void(0)" class="iziModal-button iziModal-button-fullscreen" data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-content my-4">
+        <div class="row ">
+
+            <div class="col-lg-4 text-lg-center page-link"><a onclick="type=2;ut2();"><img src="img/staff.jpg"
+                                                                                           height="128"
+                                                                                           width="128"/></a>
+            </div>
+            <div class="col-lg-4 text-lg-center page-link"><a onclick="type=3;ut3();"><img src="img/gauge.png"
+                                                                                           height="128"
+                                                                                           width="128"/></a>
+            </div>
+            <div class="col-lg-4 text-lg-center page-link"><a onclick="type=4;ut4();"><img
+                    src="img/otherofficers.png" height="128" width="128"/></a></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+&lt;!&ndash;Staff&ndash;&gt;
+
+<div id="2" class="iziModal-wrap iziModal">
+    <div class="iziModal-header">
+        <h3 class="iziModal-header-title text-center">Select the Process</h3>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a><a href="javascript:void(0)" class="iziModal-button iziModal-button-fullscreen" data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-content">
+
+
+        <div class="container">
+
+            <ul class="nav nav-tabs  justify-content-between">
+                <li class="active nav-item "><a data-toggle="tab" href="#home2" class="nav-link">Addition</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu12" class="nav-link">Update</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu22" class="nav-link">Delete</a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div id="home2" class="tab-pane fade in active">
+                    <div class="pb-5 admin_msg_win my-2">
+                        <form action="process.php" id="staffadd" method="POST" role="form">
+                            <legend class="legends">Addition</legend>
+
+                            <div class="form-group  my-2">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="">First name</label>
+                                        <input type="text" class="form-control" name="firstname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                    <div class="col">
+                                        <label for="">Last name</label>
+                                        <input type="text" class="form-control" name="lastname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                </div>
+                                <label for="">NIC-No</label>
+                                <input type="text" class="form-control" name="nicno" id="" placeholder="Input...">
+                                <label for="">EMP ID</label>
+                                <input type="text" autocomplete="off"  class="form-control" name="empid" id="" placeholder="Input...">
+                                <label for="">Designation</label>
+                                <input type="text" class="form-control" name="designation" required="true"  id="" placeholder="Input...">
+                                <label for="">Username</label>
+                                <input type="text" onkeyup="searchusername()" autocomplete="off"  class="form-control" name="username" id="username2" placeholder="Input...">
+                                <p class="alert-danger mt-1 wrongusername">User name exits</p>
+                                <label for="">Password</label>
+                                <input type="text" autocomplete="off"  class="form-control" name="password" id="" placeholder="Input...">
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="" placeholder="Input...">
+                                <label for="">Tel-No</label>
+                                <input type="tel" required class="form-control" name="telno" id="" placeholder="Input...">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Submit</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div id="menu12" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+
+
+
+                        <div class="mb-4 pb-2">
+
+                            <form action="" method="POST" role="form" id="empserachform3" class="py-2">
+
+                                <div class="form-group">
+                                    <label for="">EMP ID</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="empid" id="empidupdate3" placeholder="Input...">
+
+
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+
+                        <form action="process2.php" method="POST" id="staffupform" role="form">
+                            <legend class="legends">Update</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="name" id="staffupname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control" name="nicno" id="staffupnic" placeholder="Input...">
+
+
+                                <label for="">Designation</label>
+                                <input type="text" class="form-control" name="designation" id="staffupdesig" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="staffupemail" placeholder="Input...">
+                                <input type="text" hidden name="user_id" id="staffupuid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Update</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div id="menu22" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+
+
+
+                        <div class="mb-4 pb-2">
+
+                            <form action="" method="POST" role="form" id="empserachform4" class="py-2">
+
+                                <div class="form-group">
+                                    <label for="">EMP ID</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="empid" id="empidupdate4" placeholder="Input...">
+
+
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+
+                        <form action="process2.php" method="POST" id="staffdelform" role="form">
+                            <legend class="legends">Remove</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" readonly name="name" id="staffdelname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control" readonly  name="nicno" id="staffdelnic" placeholder="Input...">
+
+
+                                <label for="">Designation</label>
+                                <input type="text" class="form-control" readonly name="designation" id="staffdeldesig" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required readonly class="form-control" required name="email" id="staffdelemail" placeholder="Input...">
+                                <input type="text" hidden name="user_id" id="staffdeluid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+&lt;!&ndash;gauge&ndash;&gt;
+
+
+<div id="3" class="iziModal-wrap iziModal">
+    <div class="iziModal-header">
+        <h3 class="iziModal-header-title text-center">Select the Process</h3>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a><a href="javascript:void(0)" class="iziModal-button iziModal-button-fullscreen" data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-content">
+
+
+        <div class="container">
+
+            <ul class="nav nav-tabs  justify-content-between">
+                <li class="active nav-item "><a data-toggle="tab" href="#home3" class="nav-link">Addition</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu13" class="nav-link">Update</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu23" class="nav-link">Delete</a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div id="home3" class="tab-pane fade in active">
+                    <div class="pb-5 admin_msg_win my-2">
+                        <form action="process.php" id="gaugeadd" method="POST" role="form">
+                            <legend class="legends">Addition</legend>
+
+                            <div class="form-group  my-2">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="">First name</label>
+                                        <input type="text" class="form-control" name="firstname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                    <div class="col">
+                                        <label for="">Last name</label>
+                                        <input type="text" class="form-control" name="lastname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                </div>
+
+
+
+                                <label for="">NIC-No</label>
+                                <input type="text" class="form-control" name="nicno" id="" placeholder="Input...">
+                                <label for="">Area</label>
+                                <input type="text"  style="text-transform:uppercase" autocomplete="off"  class="form-control" name="Area" id="" placeholder="Input...">
+
+                                <label for="">Username</label>
+                                <input type="text" onkeyup="searchusername()" autocomplete="off"  class="form-control" name="username" id="username3" placeholder="Input...">
+                                <p class="alert-danger mt-1 wrongusername">User name exits</p>
+                                <label for="">Password</label>
+                                <input type="text" autocomplete="off"  class="form-control" name="password" id="" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="" placeholder="Input...">
+                                <label for="">Tel-No</label>
+                                <input type="tel" required class="form-control" name="telno" id="" placeholder="Input...">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Submit</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div id="menu13" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+
+
+
+                        <div class="mb-4 pb-2">
+
+                            <form action="" method="POST" role="form" id="nicserachform1" class="py-2">
+
+                                <div class="form-group">
+                                    <label for="">NIC no</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="nic" id="nicsearcharea1" placeholder="Input...">
+
+
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+
+                        <form action="process2.php" method="POST" id="gaugeupform" role="form">
+                            <legend class="legends">Update</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="name" id="gaugeupname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control" name="nic" id="gaugeupnic" placeholder="Input...">
+
+
+                                <label for="">Area</label>
+                                <input type="text" class="form-control" name="area" id="gaugeuparea" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="gaugeupemail" placeholder="Input...">
+
+                                <label for="">Tel-no</label>
+                                <input type="text" class="form-control" name="telno" id="gaugeuptelno" placeholder="Input...">
+
+                                <input type="text" hidden name="user_id" id="gaugeupuid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Update</button>
+                        </form>
+                    </div>
+
+                </div>
+                <div id="menu23" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+
+
+
+                        <div class="mb-4 pb-2">
+
+                            <form action="" method="POST" role="form" id="nicserachform2" class="py-2">
+
+                                <div class="form-group">
+                                    <label for="">NIC no</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="nic" id="nicsearcharea2" placeholder="Input...">
+
+
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+
+                        <form action="process2.php" method="POST" id="gaugedelform" role="form">
+                            <legend class="legends">Remove</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" readonly name="name" id="gaugedelname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control" readonly name="nic" id="gaugedelnic" placeholder="Input...">
+
+
+                                <label for="">Area</label>
+                                <input type="text" class="form-control" readonly name="area" id="gaugedelarea" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" readonly required name="email" id="gaugedelemail" placeholder="Input...">
+
+                                <label for="">Tel-no</label>
+                                <input type="text" class="form-control" readonly name="telno" id="gaugedeltelno" placeholder="Input...">
+
+                                <input type="text" hidden name="user_id" id="gaugedeluid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Delete</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+&lt;!&ndash;other&ndash;&gt;
+<div id="4" class="iziModal-wrap iziModal">
+    <div class="iziModal-header">
+        <h3 class="iziModal-header-title text-center">Select the Process</h3>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close" data-izimodal-close=""></a><a href="javascript:void(0)" class="iziModal-button iziModal-button-fullscreen" data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-content">
+
+
+        <div class="container">
+
+            <ul class="nav nav-tabs  justify-content-between">
+                <li class="active nav-item "><a data-toggle="tab" href="#home4" class="nav-link">Addition</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu14" class="nav-link">Update</a>
+                </li>
+                <li class="nav-item"><a data-toggle="tab" href="#menu24" class="nav-link">Delete</a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div id="home4" class="tab-pane fade in active">
+                    <div class="pb-5 admin_msg_win my-2">
+                        <form action="process.php" id="otheradd" method="POST" role="form">
+                            <legend class="legends">Addition</legend>
+
+                            <div class="form-group  my-2">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="">First name</label>
+                                        <input type="text" class="form-control" required  name="firstname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                    <div class="col">
+                                        <label for="">Last name</label>
+                                        <input type="text" class="form-control" required name="lastname" id=""
+                                               placeholder="Input...">
+                                    </div>
+                                </div>
+
+
+
+                                <label for="">NIC-No</label>
+                                <input type="text" class="form-control" required name="nicno" id="" placeholder="Input...">
+                                <label for="">Designation</label>
+                                <input type="text" class="form-control" autocomplete="off" required name="designation" id="" placeholder="Input...">
+                                <label for="">Area</label>
+                                <input type="text" autocomplete="off" required class="form-control" name="Area" id="" placeholder="Input...">
+
+                                <label for="">Username</label>
+                                <input type="text" onkeyup="searchusername()" autocomplete="off"  required class="form-control" name="username" id="username4" placeholder="Input...">
+                                <p class="alert-danger mt-1 wrongusername">User name exits</p>
+                                <label for="">Password</label>
+                                <input type="text" autocomplete="off"  required class="form-control" name="password" id="" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="" placeholder="Input...">
+                                <label for="">Tel-No</label>
+                                <input type="tel" required class="form-control" required name="telno" id="" placeholder="Input...">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Submit</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div id="menu14" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+
+
+
+                        <div class="mb-4 pb-2">
+
+                            <form action="" method="POST" role="form" id="nicserachform3" class="py-2">
+
+                                <div class="form-group">
+                                    <label for="">NIC no</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="nic" id="nicsearcharea3" placeholder="Input...">
+
+
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+
+                        <form action="process2.php" method="POST" id="otherupform" role="form">
+                            <legend class="legends">Update</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="name" id="otherupname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control" name="nic" id="otherupnic" placeholder="Input...">
+                                <label for="">Desigantion</label>
+                                <input type="text" class="form-control" name="designation" id="otherupdesignation" placeholder="Input...">
+
+
+                                <label for="">Area</label>
+                                <input type="text" class="form-control" name="area" id="otheruparea" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control" required name="email" id="otherupemail" placeholder="Input...">
+
+                                <label for="">Tel-no</label>
+                                <input type="text" class="form-control" name="telno" id="otheruptelno" placeholder="Input...">
+
+                                <input type="text" hidden name="user_id" id="otherupuid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Update</button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+                <div id="menu24" class="tab-pane fade">
+                    <div class="pb-5 admin_msg_win my-2">
+                        <div class="mb-4 pb-2">
+                            <form action="" method="POST" role="form" id="nicserachform4" class="py-2">
+                                <div class="form-group">
+                                    <label for="">NIC no</label>
+                                    <input type="text" autocomplete="off" onblur="" class="form-control" name="nic" id="nicsearcharea4" placeholder="Input...">
+                                </div>
+                                <button type="submit" class="btn btn-primary admin_msg_submit ">Search</button>
+                            </form>
+                        </div>
+
+
+
+                        <form action="process2.php" method="POST" id="otherdelform" role="form">
+                            <legend class="legends">Remove</legend>
+
+                            <div class="form-group  my-2">
+
+
+
+
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" readonly name="name" id="otherdelname"
+                                       placeholder="Input...">
+
+
+
+
+                                <label for="">NIC no</label>
+                                <input type="text" class="form-control"readonly name="nic" id="otherdelnic" placeholder="Input...">
+                                <label for="">Desigantion</label>
+                                <input type="text" class="form-control"readonly name="designation" id="otherdeldesignation" placeholder="Input...">
+
+
+                                <label for="">Area</label>
+                                <input type="text" class="form-control"readonly name="area" id="otherdelarea" placeholder="Input...">
+
+                                <label for="">E-mail</label>
+                                <input type="email" required class="form-control"readonly required name="email" id="otherdelemail" placeholder="Input...">
+
+                                <label for="">Tel-no</label>
+                                <input type="text" class="form-control"readonly name="telno" id="otherdeltelno" placeholder="Input...">
+
+                                <input type="text" hidden readonly name="user_id" id="otherdeluid">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary admin_msg_submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    $(".wrongusername").hide();
+    $("#usersmodal").iziModal();
+   // $("#usersmodal").iziModal('open');
+
+    $("#2").iziModal();
+    $("#3").iziModal();
+    $("#4").iziModal();
+
+
+    $("#users").click(
+        function () {
+            $('form').trigger("reset");
+            $("#usersmodal").iziModal('open');
+            $(".wrongusername").hide();
+        }
+    );
+
+    function ut2() {
+        $("#2").iziModal('open');
+    }
+
+    function ut3() {
+        $("#3").iziModal('open');
+    }
+
+    function ut4() {
+        $("#4").iziModal('open');
+    }
+
+    function select(e) {
+
+    }
+
+    function searchusername() {
+        var arr = [ $("#username").val(),$("#username1").val(),$("#username2").val(),$("#username3").val(),$("#username4").val()];
+
+        var arr2=( arr.filter(function(n){ return n != undefined }));
+        var username  = $.grep(arr2,function(n){
+            return(n);
+        });
+
+
+        $.get("process2.php?value=30&username="+username, function(data, status){
+
+            if(data=="exits")
+
+                $(".wrongusername").show()
+
+
+            else
+                $(".wrongusername").hide();
+
+        });
+
+    }
+
+
+</script>
+<script>
+
+
+
+
+    $("#staffadd").submit(function (e) {
+        e.preventDefault();
+        $.post("process2.php", $(this).serialize()+"&value=14",
+            function (data, status) {
+                $("#staffadd").trigger('reset');
+                alert("sucess "+data);
+            });
+    });
+    $("#gaugeadd").submit(function (e) {
+        e.preventDefault();
+        $.post("process2.php", $(this).serialize()+"&value=15",
+            function (data, status) {
+                $("#gaugeadd").trigger('reset');
+                alert("sucess "+data);
+            });
+    });
+
+    $("#otheradd").submit(function (e) {
+        e.preventDefault();
+        $.post("process2.php", $(this).serialize()+"&value=16",
+            function (data, status) {
+                $("#otheradd").trigger('reset');
+                alert("sucess "+data);
+            });
+    });
+
+
+
+    /**************staff update*********/
+    $("#staffupform").hide();
+    $("#empserachform3").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?emp="+$("#empidupdate3").val()+"&value=11",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#empidupdate3").val()+"is registered for staff."
+
+                    , });
+                $("#empserachform3,#staffupform").trigger('reset');
+                $("#staffupform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+                $("#staffupuid").val(obj.user_id);
+                $("#staffupname").val(obj.name);
+                $("#staffupnic").val(obj.nic);
+                $("#staffupdesig").val(obj.designation);
+                $("#staffupemail").val(obj.email);
+                $("#staffupform").show();
+            }
+        });
+    });
+
+    $("#staffupform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#staffupform").serialize()+"&value=16&type=s1",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy') ;
+
+                                },4000);
+
+                                setTimeout(function () {
+                                    if(data=="0"){
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '', });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'Requset sent sucessfully',
+                                            content: 'Request send to  pending permissions  ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#empserachform3,#staffupform").trigger('reset');
+                                    $("#staffupform").hide();
+
+                                },4000);
+                            });
+
+
+
+
+                    }
+                },
+                cancel:  {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+    /****************staff delete********/
+    $("#staffdelform").hide();
+    $("#empserachform4").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?emp="+$("#empidupdate4").val()+"&value=11",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#empidupdate4").val()+"is registered for staff."
+
+                    , });
+                $("#empserachform4,#staffdelform").trigger('reset');
+                $("#staffdelform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+
+                $("#staffdelname").val(obj.name);
+                $("#staffdelnic").val(obj.nic);
+                $("#staffdeldesig").val(obj.designation);
+                $("#staffdelemail").val(obj.email);
+                $("#staffdeluid").val(obj.user_id);
+                $("#staffdelform").show();
+            }
+        });
+    });
+
+    $("#staffdelform").submit(function (e) {
+        e.preventDefault();
+        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+        $.post("process.php", $(this).serialize()+"&value=16&type=s2",
+            function (data, status) {
+
+                setTimeout(function () {
+                    $('body').loadingModal('destroy') ;
+
+                },4000);
+
+                setTimeout(function () {
+                    if(data=="0"){
+                        $.alert({
+                            title: 'Error',
+                            icon: 'fa fa-warning',
+                            type: 'orange',
+                            content: 'Something went wrong, please retry again after sometime.' +
+                            '<hr>' +
+                            '', });
+                    }
+                    else {
+                        $.alert({
+                            title: 'User Removed',
+                            content: 'User Removed sucessfully. ',
+                            icon: 'fa fa-rocket',
+                            animation: 'scale',
+                            closeAnimation: 'scale',
+                            closeIcon: true,
+                            buttons: {
+                                okay: {
+                                    text: 'Okay',
+                                    btnClass: 'btn-green'
+                                },
+                            }
+                        });
+
+
+                    }
+
+
+                    $("#empserachform3,#staffupform").trigger('reset');
+                    $("#staffupform").hide();
+
+                },4000);
+            });
+
+    });
+    /************ gauge update***********/
+
+    $("#gaugeupform").hide();
+    $("#nicserachform1").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?nic="+$("#nicsearcharea1").val()+"&value=7",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#nicsearcharea1").val()+"is registered for staff."
+
+                    , });
+                $("#nicserachform1,#gaugeupform").trigger('reset');
+                $("#gaugeupform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+
+                $("#gaugeupname").val(obj.name);
+                $("#gaugeupnic").val(obj.nic);
+                $("#gaugeuparea").val(obj.area);
+                $("#gaugeupemail").val(obj.email);
+                $("#gaugeupuid").val(obj.user_id);
+                $("#gaugeupform").show();
+            }
+        });
+    });
+    $("#gaugeupform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#gaugeupform").serialize()+"&value=16&type=g1",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy') ;
+
+                                },4000);
+
+                                setTimeout(function () {
+                                    if(data=="0"){
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '', });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'Registered sucessfully',
+                                            content: 'User updated sucessfully. ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#nicserachform1,#gaugeupform").trigger('reset');
+                                    $("#gaugeupform").hide();
+
+                                },4000);
+                            });
+
+
+
+
+                    }
+                },
+                cancel:  {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+
+    /*************gauge delete**************/
+
+    $("#gaugedelform").hide();
+    $("#nicserachform2").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?nic="+$("#nicsearcharea2").val()+"&value=7",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#nicsearcharea2").val()+"is registered for staff."
+
+                    , });
+                $("#nicserachform2,#gaugedelform").trigger('reset');
+                $("#gaugedelform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+
+                $("#gaugedelname").val(obj.name);
+                $("#gaugedelnic").val(obj.nic);
+                $("#gaugedelarea").val(obj.area);
+                $("#gaugedelemail").val(obj.email);
+                $("#gaugedeluid").val(obj.user_id);
+                $("#gaugedelform").show();
+
+            }
+        });
+    });
+    $("#gaugedelform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#gaugedelform").serialize()+"&value=16&type=g2",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy') ;
+
+                                },4000);
+
+                                setTimeout(function () {
+                                    if(data=="0"){
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '', });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'deleted sucessfully',
+                                            content: 'User deleted sucessfully. ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#nicserachform2,#gaugedelform").trigger('reset');
+                                    $("#gaugedelform").hide();
+
+                                },4000);
+                            });
+
+
+
+
+                    }
+                },
+                cancel:  {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+
+
+    /****************other update****************/
+    $("#otherupform").hide();
+    $("#nicserachform3").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?nic="+$("#nicsearcharea3").val()+"&value=14",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#nicsearcharea3").val()+"is registered for staff."
+
+                    , });
+                $("#nicserachform3,#otherupform").trigger('reset');
+                $("#otherupform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+
+                $("#otherupname").val(obj.name);
+                $("#otherupnic").val(obj.nic);
+                $("#otheruparea").val(obj.area);
+                $("#otherupemail").val(obj.email);
+                $("#otherupuid").val(obj.user_id);
+                $("#otherupdesignation").val(obj.designation);
+                $("#otherupform").show();
+            }
+        });
+    });
+    $("#otherupform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#otherupform").serialize()+"&value=16&type=o1",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy') ;
+
+                                },4000);
+
+                                setTimeout(function () {
+                                    if(data=="0"){
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '', });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'Registered sucessfully',
+                                            content: 'User updated sucessfully. ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#nicserachform3,#otherupform").trigger('reset');
+                                    $("#otherupform").hide();
+
+                                },4000);
+                            });
+
+
+
+
+                    }
+                },
+                cancel:  {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+
+    /*********************other delete*****************/
+
+
+    $("#otherdelform").hide();
+    $("#nicserachform4").submit(function (e) {
+        e.preventDefault()
+        $.get("process.php?nic="+$("#nicsearcharea4").val()+"&value=14",function(data,sucess) {
+            if(data=="0"){
+                $.alert({
+                    title: 'NO Result Found',
+                    icon: 'fa fa-warning',
+                    type: 'orange',
+                    content: 'Sorry their is no emp-id =' +$("#nicsearcharea4").val()+"is registered for staff."
+
+                    , });
+                $("#nicserachform4,#otherdelform").trigger('reset');
+                $("#otherdelform").hide();
+            }
+            else {
+                alert(data);
+                var obj = JSON.parse(data);
+
+                $("#otherdelname").val(obj.name);
+                $("#otherdelnic").val(obj.nic);
+                $("#otherdelarea").val(obj.area);
+                $("#otherdelemail").val(obj.email);
+                $("#otherdeluid").val(obj.user_id);
+                $("#otherdeldesignation").val(obj.designation);
+                $("#otherdelform").show();
+
+            }
+        });
+    });
+    $("#otherdelform").submit(function (e) {
+        e.preventDefault();
+        $.confirm({
+            title: '<strong>Confirmation</strong>',
+            content: 'Are you sure this is correct operation',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.9,
+            buttons: {
+                'confirm': {
+                    text: 'Proceed',
+                    btnClass: 'btn-blue',
+                    action: function () {
+
+                        $('body').loadingModal({text: 'please Wait'}).loadingModal('animation', 'fadingCircle');
+                        $.post("process.php", $("#otherdelform").serialize()+"&value=16&type=o2",
+                            function (data, status) {
+
+                                setTimeout(function () {
+                                    $('body').loadingModal('destroy') ;
+
+                                },4000);
+
+                                setTimeout(function () {
+                                    if(data=="0"){
+                                        $.alert({
+                                            title: 'Error',
+                                            icon: 'fa fa-warning',
+                                            type: 'orange',
+                                            content: 'Something went wrong, please retry again after sometime.' +
+                                            '<hr>' +
+                                            '', });
+                                    }
+                                    else {
+                                        $.alert({
+                                            title: 'deleted sucessfully',
+                                            content: 'User deleted sucessfully. ',
+                                            icon: 'fa fa-rocket',
+                                            animation: 'scale',
+                                            closeAnimation: 'scale',
+                                            closeIcon: true,
+                                            buttons: {
+                                                okay: {
+                                                    text: 'Okay',
+                                                    btnClass: 'btn-green'
+                                                },
+                                            }
+                                        });
+
+
+                                    }
+
+
+                                    $("#nicserachform4,#otherdelform").trigger('reset');
+                                    $("#otherdelform").hide();
+
+                                },4000);
+                            });
+
+
+
+
+                    }
+                },
+                cancel:  {
+
+                    text: 'Cancel',
+                    btnClass: 'btn-red',
+                    action: function () {
+
+                    }
+                },
+
+            }
+        });
+
+
+    });
+
+
+</script>
+
+
+-->
+
+
+</body>
+</html>

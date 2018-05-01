@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.js"></script>
+    <link rel="stylesheet" href="ui/jquery-ui.min.css">
+    <script src="ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/General.css">
+    <script src="js/iziModal.min.js"></script>
+    <link rel="stylesheet" href="css/iziModal.min.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-beta.2-dist/css/bootstrap.css">
+    <script src="bootstrap-4.0.0-beta.2-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/jquery.modal.min.css">
+    <script src="js/bootstrap-typeahead.min.js"></script>
+
+
+</head>
+<body>
+<div class="iziModal  " id="gaugecontactform">
+    <div class="iziModal-header">
+
+        <h2 class="iziModal-header-title text-lg-center " style="font-size: larger">Contacts</h2>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close"
+                                                data-izimodal-close=""></a><a href="javascript:void(0)"
+                                                                              class="iziModal-button iziModal-button-fullscreen"
+                                                                              data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-wrap " style="height: auto">
+        <div class="iziModal-content p-2">
+
+            <form action="process2.php" method="POST" role="form" id="gaugesearch" class="admin_msg_win m-4 p-3">
+                <legend class="legends">Identification</legend>
+
+                <div class="row ">
+                    <div class="col-lg-6  ">
+                        <label>Name :</label>
+                        <div class="input-group">
+      <span class="input-group-addon">
+
+      </span>
+                            <input type="text" required onkeyup="keyup();" onchange="keyup()" id="name"
+                                   autocomplete="off" class="form-control" aria-label="Text input with checkbox"
+                                   data-toggle="tooltip" data-placement="top" title="Please fill out one field">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Area :</label>
+                        <div class="input-group">
+      <span class="input-group-addon">
+
+      </span>
+                            <input type="text" required onkeyup="keyup();" onchange="keyup()" autocomplete="off"
+                                   class="form-control" id="area" aria-label="Text input with radio button"
+                                   data-toggle="tooltip" data-placement="top" title="Please fill out one field">
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-6  ">
+                        <label>EMP ID :</label>
+                        <div class="input-group">
+      <span class="input-group-addon">
+
+      </span>
+                            <input type="text" required onkeyup="keyup();" onchange="keyup()" id="empids"
+                                   autocomplete="off" class="form-control" aria-label="Text input with checkbox"
+                                   data-toggle="tooltip" data-placement="top" title="Please fill out one field">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>NIC no :</label>
+                        <div class="input-group">
+      <span class="input-group-addon">
+
+      </span>
+                            <input type="text" required onkeyup="keyup();" onchange="keyup()" autocomplete="off"
+                                   class="form-control" id="nicnos" aria-label="Text input with radio button"
+                                   data-toggle="tooltip" data-placement="top" title="Please fill out one field">
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="reset" id="reset" class="btn btn-primary mt-4 ">Reset</button>
+                <button type="submit" class="btn btn-primary mt-4 ">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="iziModal  " id="gaugecontact">
+    <div class="iziModal-header">
+
+        <h2 class="iziModal-header-title text-lg-center " style="font-size: larger">Contacts</h2>
+        <div class="iziModal-header-buttons"><a href="javascript:void(0)" class="iziModal-button iziModal-button-close"
+                                                data-izimodal-close=""></a><a href="javascript:void(0)"
+                                                                              class="iziModal-button iziModal-button-fullscreen"
+                                                                              data-izimodal-fullscreen=""></a></div>
+    </div>
+    <div class="iziModal-wrap  justify-content-lg-center" style="height: auto">
+        <div class="iziModal-content p-2  ">
+            <div id="h"></div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script>
+    $("#gaugecontactform").iziModal();
+    $("#gaugecontact").iziModal();
+    $("#gaugecontactform").iziModal('open');
+    $("#reset").click(function (e) {
+        $("#name,#area,#empids,#nicnos").prop("disabled", false);
+    });
+
+
+    keyup();
+    function keyup() {
+        if ($("#name,#area,#empids,#nicnos").val() == "") {
+            $("#name,#area,#empids,#nicnos").prop("disabled", false);
+        }
+
+        if ($("#name").val() != "") {
+            $("#nicnos").prop("disabled", true);
+            $("#empids").prop("disabled", true);
+            $("#area").prop("disabled", true);
+            $("#name").prop("disabled", false);
+        }
+        if ($("#area").val() != "") {
+            $("#nicnos").prop("disabled", true);
+            $("#empids").prop("disabled", true);
+            $("#name").prop("disabled", true);
+            $("#area").prop("disabled", false);
+        }
+        if ($("#nicnos").val() != "") {
+            $("#nicnos").prop("disabled", false);
+            $("#empids").prop("disabled", true);
+            $("#area").prop("disabled", true);
+            $("#name").prop("disabled", true);
+        }
+        if ($("#empids").val() != "") {
+            $("#nicnos").prop("disabled", true);
+            $("#name").prop("disabled", true);
+            $("#area").prop("disabled", true);
+            $("#empids").prop("disabled", false);
+        }
+    }
+
+
+    $(document).ready(function () {
+        $.get("process2.php?value=20",
+            function (data, status) {
+                var arr = JSON.parse(data);
+                $('#area').typeahead({
+                    source: arr
+                });
+            });
+        $.get("process2.php?value=22",
+            function (data, status) {
+
+                var arr = JSON.parse(data);
+                //   alert(arr);
+                $('#name').typeahead({
+                    source: arr
+                });
+            });
+        $.get("process2.php?value=24",
+            function (data, status) {
+
+                var arr = JSON.parse(data);
+                //   alert(arr);
+                $('#nicnos').typeahead({
+                    source: arr
+                });
+            });
+        $.get("process2.php?value=25",
+            function (data, status) {
+
+                var arr = JSON.parse(data);
+                //   alert(arr);
+
+                $('#empids').typeahead({
+                    source: arr
+                });
+            });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({track: true});
+        })
+
+    });
+
+    $("#gaugesearch").submit(function (e) {
+        e.preventDefault();
+
+        var area = $("#area").val();
+        var name = $("#name").val();
+        $("#gaugesearch").trigger("reset");
+        $.post("process.php", {
+            area: area,
+            name: name,
+            nicno: $("#nicnos").val(),
+            empid: $("#empids").val(),
+            value: 23
+        }, function (data, status) {
+            $("#h").empty();
+            document.getElementById("h").innerHTML = data;
+            $("#gaugecontact").iziModal('open');
+        });
+
+
+    });
+
+
+</script>
+</body>
+</html>
